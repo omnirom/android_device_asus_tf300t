@@ -304,7 +304,7 @@ service hciattach /system/bin/brcm_patchram_plus --enable_hci --scopcm=0,2,0,0,0
 #  umount /mnt/usbdrive
 
 # configure MSC partition
-service mischelp /system/bin/mischelp /dev/block/platform/sdhci-tegra.3/by-name/MC boot-recovery
+service mischelp /system/bin/mischelp /dev/block/mmcblk0p3 boot-recovery
     disabled
     class main
     user root
