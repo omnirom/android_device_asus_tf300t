@@ -2,3 +2,4 @@
 # system.prop for tf300
 #
 ro.carrier=wifi-only
+ro.sf.lcd_density=160
