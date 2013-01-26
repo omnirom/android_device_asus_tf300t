@@ -12,14 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, device/asus/tf300t/device_tf300t.mk)
-# This is where we'd set a backup provider if we had one
-#$(call inherit-product, device/sample/products/backup_overlay.mk)
+# Inherit full-base
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
-# Discard inherited values and use our own instead.
+# Inherit from toro device
+$(call inherit-product, device/asus/tf300t/device_tf300t.mk)
+
+# This is where we'd set a backup provider if we had one
+#$(call inherit-product, device/sample/products/backup_overlay.mk)
+
+# Set those variables here to overwrite the inherited values.
 PRODUCT_NAME := full_tf300t
 PRODUCT_DEVICE := tf300t
-PRODUCT_BRAND := Asus
-PRODUCT_MODEL := TF300T
+PRODUCT_BRAND := asus
+PRODUCT_MODEL := Transformer Pad TF300T
