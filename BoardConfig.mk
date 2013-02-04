@@ -22,22 +22,22 @@ USE_CAMERA_STUB := false
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-# Board nameing
+# Board naming
 TARGET_NO_RADIOIMAGE := true
-TARGET_BOARD_PLATFORM := tegra
 TARGET_BOOTLOADER_BOARD_NAME := cardhu
+TARGET_NO_BOOTLOADER := true
+
+TARGET_BOARD_PLATFORM := tegra
 
 # Audio blobs
 COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB
 
-# Target arch settings
-TARGET_NO_BOOTLOADER := true
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_ARCH_VARIANT := armv7-a-neon
-TARGET_ARCH_VARIANT_CPU := cortex-a9
 TARGET_CPU_SMP := true
 TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a9
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
 NEED_WORKAROUND_CORTEX_A9_745320 := true
@@ -49,7 +49,7 @@ BOARD_KERNEL_PAGESIZE :=
 
 # EGL settings
 BOARD_EGL_NEEDS_LEGACY_FB := true
-BOARD_EGL_CFG := device/asus/tf300t/prebuilt/egl.cfg
+BOARD_EGL_CFG := device/asus/tf300t/egl.cfg
 USE_OPENGL_RENDERER := true
 
 # Misc display settings
@@ -60,6 +60,7 @@ BOARD_NO_ALLOW_DEQUEUE_CURRENT_BUFFER := true
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUEDROID_VENDOR_CONF := device/asus/tf300t/bluetooth/vnd_tf300t.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/asus/tf300t/bluetooth
 
 # Support for dock battery
 TARGET_HAS_DOCK_BATTERY := true
@@ -71,7 +72,7 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
 BOARD_HOSTAPD_DRIVER        := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_bcmdhd
 BOARD_WLAN_DEVICE           := bcmdhd
-WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd_29/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA     := "/system/vendor/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/fw_bcmdhd_apsta.bin"
 WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/fw_bcmdhd_p2p.bin"

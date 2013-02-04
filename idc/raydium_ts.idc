@@ -1,4 +1,4 @@
-# Copyright (C) 2010 The Android Open Source Project
+# Copyright (C) 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 # limitations under the License.
 
 #
-# Input Device Configuration File for the ELAN touch panel device.
+# Input Device Configuration File for the Atmel Maxtouch touch screen.
 #
 # These calibration values are derived from empirical measurements
 # and may not be appropriate for use with other touch screens.
@@ -49,8 +49,7 @@ touch.pressure.source = default
 touch.pressure.scale = 0.0125
 
 # Size
-touch.size.calibration = default
+touch.size.calibration = normalized
 
 # Orientation
 touch.orientation.calibration = vector
-
