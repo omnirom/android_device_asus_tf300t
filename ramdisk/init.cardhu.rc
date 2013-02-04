@@ -143,8 +143,8 @@ on boot
     #write /sys/module/cpuidle_t3/parameters/lp2_0_in_idle 0
     write /sys/module/cpuidle/parameters/lp2_in_idle 0
 
-# Setup CPU for "balanced" mode
-    setprop sys.cpu.mode 1
+# Setup CPU for "performance" mode
+    setprop sys.cpu.mode 2
 
 # Interactive governor settings
     chown system system /sys/devices/system/cpu/cpufreq/interactive/boost_factor
