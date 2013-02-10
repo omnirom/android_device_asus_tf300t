@@ -75,9 +75,9 @@ PRODUCT_PACKAGES += \
     AutoParts_tfp \
     blobpack_tfp \
     mischelp \
-    wifimacwriter
-#    com.cyanogenmod.asusdec \
-#    libasusdec_jni
+    wifimacwriter \
+    com.cyanogenmod.asusdec \
+    libasusdec_jni
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \

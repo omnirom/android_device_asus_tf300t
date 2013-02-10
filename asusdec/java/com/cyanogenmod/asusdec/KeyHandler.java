@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.IBinder;
@@ -34,6 +35,7 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
+import android.util.Log;
 import android.util.Slog;
 import android.view.KeyEvent;
 
@@ -42,9 +44,22 @@ import com.android.internal.os.DeviceKeyHandler;
 public final class KeyHandler implements DeviceKeyHandler {
     private static final String TAG = "AsusdecKeyHandler";
 
+    private static final boolean DEBUG_KEYEVENT = false;
+
     private static final int MINIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_OFF + 1;
     private static final int MAXIMUM_BACKLIGHT = android.os.PowerManager.BRIGHTNESS_ON;
     private static final String SETTING_TOUCHPAD_STATUS = "touchpad_status";
+
+    // Use specific scan codes from device instead of aosp keycodes
+    private static final int SCANCODE_TOGGLE_WIFI     = 238;
+    private static final int SCANCODE_TOGGLE_BT       = 237;
+    private static final int SCANCODE_TOGGLE_TOUCHPAD =  60;  // KEYCODE_F2
+    private static final int SCANCODE_BRIGHTNESS_DOWN = 224;
+    private static final int SCANCODE_BRIGHTNESS_UP   = 225;
+    private static final int SCANCODE_BRIGHTNESS_AUTO =  61;  // KEYCODE_F3
+    private static final int SCANCODE_SCREENSHOT      = 212;
+    private static final int SCANCODE_SETTINGS        =  62;  // KEYCODE_F4
+    private static final int SCANCODE_VOLUME_MUTE     = 113;  // KEYCODE_VOLUME_MUTE
 
     private final Context mContext;
     private final Handler mHandler;
@@ -52,11 +67,12 @@ public final class KeyHandler implements DeviceKeyHandler {
     private final boolean mAutomaticAvailable;
     private boolean mTouchpadEnabled = true;
     private WifiManager mWifiManager;
+    private AudioManager mAudioManager;
     private BluetoothAdapter mBluetoothAdapter;
     private IPowerManager mPowerManager;
 
     static {
-        System.loadLibrary("asusdec_jni");
+        AsusdecNative.loadAsusdecLib();
     }
 
     public KeyHandler(Context context) {
@@ -98,43 +114,62 @@ public final class KeyHandler implements DeviceKeyHandler {
     };
 
     @Override
-    public int handleKeyEvent(KeyEvent event) {
+    public boolean handleKeyEvent(KeyEvent event) {
+
+        if (DEBUG_KEYEVENT) {
+            Log.d(TAG, "KeyEvent: action=" + event.getAction()
+                    + ", flags=" + event.getFlags()
+                    + ", canceled=" + event.isCanceled()
+                    + ", keyCode=" + event.getKeyCode()
+                    + ", scanCode=" + event.getScanCode()
+                    + ", metaState=" + event.getMetaState()
+                    + ", repeatCount=" + event.getRepeatCount());
+        }
+
         if (event.getAction() != KeyEvent.ACTION_DOWN
                 || event.getRepeatCount() != 0) {
-            return KEYEVENT_UNCAUGHT;
+            return false;
         }
 
-        switch (event.getKeyCode()) {
-            case KeyEvent.KEYCODE_TOGGLE_WIFI:
+        switch (event.getScanCode()) {
+            case SCANCODE_TOGGLE_WIFI:
                 toggleWifi();
                 break;
-            case KeyEvent.KEYCODE_TOGGLE_BT:
+            case SCANCODE_TOGGLE_BT:
                 toggleBluetooth();
                 break;
-            case KeyEvent.KEYCODE_TOGGLE_TOUCHPAD:
+            case SCANCODE_TOGGLE_TOUCHPAD:
                 toggleTouchpad();
                 break;
-            case KeyEvent.KEYCODE_BRIGHTNESS_DOWN:
+            case SCANCODE_BRIGHTNESS_DOWN:
                 brightnessDown();
                 break;
-            case KeyEvent.KEYCODE_BRIGHTNESS_UP:
+            case SCANCODE_BRIGHTNESS_UP:
                 brightnessUp();
                 break;
-            case KeyEvent.KEYCODE_BRIGHTNESS_AUTO:
-                brightnessAuto();
+            case SCANCODE_BRIGHTNESS_AUTO:
+                toggleAutoBrightness();
                 break;
-            case KeyEvent.KEYCODE_SCREENSHOT:
+            case SCANCODE_SCREENSHOT:
                 takeScreenshot();
                 break;
-            case KeyEvent.KEYCODE_SETTINGS:
+            case SCANCODE_SETTINGS:
                 launchSettings();
                 break;
+            case SCANCODE_VOLUME_MUTE:
+                // KEYCODE_VOLUME_MUTE is part of the aosp keyevent intercept handling, but
+                // aosp uses it stop ringing in phone devices (no system volume mute toggle).
+                // Since transformer devices doesn't have a telephony subsystem, we handle and
+                // treat this event as a volume mute toggle action. the asusdec KeyHandler
+                // mustn't mark the key event as consumed.
+                toggleAudioMute();
+                return false;
 
             default:
-                return KEYEVENT_UNCAUGHT;
+                return false;
         }
 
-        return KEYEVENT_CAUGHT;
+        return true;
     }
 
     private void toggleWifi() {
@@ -217,11 +252,19 @@ public final class KeyHandler implements DeviceKeyHandler {
         setBrightness(value);
     }
 
-    private void brightnessAuto() {
+    private void toggleAutoBrightness() {
         if (!mAutomaticAvailable) {
             return;
         }
-        setBrightnessMode(Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+        int currentValue =
+                Settings.System.getInt(
+                    mContext.getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
+        setBrightnessMode(
+                currentValue == Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL ?
+                Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC :
+                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
     }
 
     private void setBrightnessMode(int mode) {
@@ -235,7 +278,7 @@ public final class KeyHandler implements DeviceKeyHandler {
                     ServiceManager.getService("power"));
         }
         try {
-            mPowerManager.setBacklightBrightness(value);
+            mPowerManager.setTemporaryScreenBrightnessSettingOverride(value);
         } catch (RemoteException ex) {
             Slog.e(TAG, "Could not set backlight brightness", ex);
         }
@@ -258,6 +301,25 @@ public final class KeyHandler implements DeviceKeyHandler {
             mContext.startActivity(mSettingsIntent);
         } catch (ActivityNotFoundException ex) {
             Slog.e(TAG, "Could not launch settings intent", ex);
+        }
+    }
+
+    private void toggleAudioMute() {
+        if (mAudioManager == null) {
+            mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        }
+        // We only act in normal mode (rings, calls, ... are handled by aosp)
+        if (mAudioManager.getMode() == AudioManager.MODE_NORMAL) {
+            // TODO: If an alarm is sound then don't toggle the volume mute. In this case,
+            // is better to ignore the key event and let the alarm app to handle it.
+
+            // Just toggle between normal and silent (by now we are not going to handle
+            // vibration here)
+            int newValue =
+                    mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_NORMAL ?
+                    AudioManager.RINGER_MODE_NORMAL :
+                    AudioManager.RINGER_MODE_SILENT;
+            mAudioManager.setRingerMode(newValue);
         }
     }
 
