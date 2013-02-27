@@ -22,13 +22,17 @@ public final class AsusdecNative {
 
     private static final String TAG = "AsusdecNative";
 
+    private static final boolean DEBUG = false;
+
     private static boolean sLoaded = false;
 
     public static synchronized void loadAsusdecLib() {
         if (!sLoaded) {
             System.loadLibrary("asusdec_jni");
             sLoaded = true;
-            Log.i(TAG, "Asusdec native library loaded");
+            if (DEBUG) {
+                Log.i(TAG, "Asusdec native library loaded");
+            }
         }
     }
 
