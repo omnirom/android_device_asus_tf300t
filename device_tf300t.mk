@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# The gps config appropriate for this device
-$(call inherit-product, device/common/gps/gps_us_supl.mk)
-
 $(call inherit-product-if-exists, vendor/asus/tf300t/tf300t-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/asus/tf300t/overlay
@@ -103,6 +100,11 @@ PRODUCT_COPY_FILES += \
     device/asus/tf300t/media_codecs.xml:system/etc/media_codecs.xml \
     device/asus/tf300t/media_profiles.xml:system/etc/media_profiles.xml \
     device/asus/tf300t/audio_policy.conf:system/etc/audio_policy.conf
+
+# gps config files
+PRODUCT_COPY_FILES += \
+    device/asus/tf300t/gpsconfig.xml:system/etc/gps/gpsconfig.xml \
+    device/asus/tf300t/gps.conf:system/etc/gps.conf
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
