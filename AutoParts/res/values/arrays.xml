@@ -12,16 +12,14 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <string-array name="cpu_settings_array" translatable="false">
         <item>@string/cpu_pwrsv</item>
         <item>@string/cpu_bal</item>
         <item>@string/cpu_perf</item>
     </string-array>
-
     <string-array name="cpu_settings_array_values" translatable="false">
         <item>0</item>
         <item>1</item>
@@ -36,7 +34,6 @@
         <item>@string/lto_download_interval_2weeks</item>
         <item>@string/lto_download_interval_1month</item>
     </string-array>
-
     <string-array name="lto_download_interval_values" translatable="false">
         <item>43200</item>
         <item>86400</item>
@@ -50,7 +47,6 @@
         <item>@string/lto_download_file_7days</item>
         <item>@string/lto_download_file_30days</item>
     </string-array>
-
     <string-array name="lto_download_file_values" translatable="false">
         <item>7day</item>
         <item>30day</item>
