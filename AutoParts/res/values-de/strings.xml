@@ -12,9 +12,8 @@
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Asus Transformer TF300T Einstellungen</string>
     <string name="cpu_settings_title">CPU</string>
     <string name="cpu_mode_title">CPU-Modus</string>
