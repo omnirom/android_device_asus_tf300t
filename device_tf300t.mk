@@ -104,10 +104,8 @@ PRODUCT_COPY_FILES += \
 # gps config files
 PRODUCT_COPY_FILES += \
     device/asus/tf300t/gpsconfig.xml:system/etc/gps/gpsconfig.xml \
-    device/asus/tf300t/gps.conf:system/etc/gps.conf
+    device/asus/tf300t/gps.conf:system/etc/gps.conf \
+    device/asus/tf300t/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
-
-# Copy bcm4329 firmware
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)

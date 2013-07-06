@@ -73,13 +73,15 @@ on boot
     chown bluetooth net_bt_stack ro.bt.bdaddr_path
     chown bluetooth net_bt_stack /system/etc/bluetooth
     chown bluetooth net_bt_stack /data/misc/bluetooth
-    setprop ro.bt.bdaddr_path "/data/misc/bluetooth/bdaddr"
+    setprop ro.bt.bdaddr_path "/data/misc/bluetooth/mac.txt"
 
     # bluetooth LPM
     chmod 0220 /proc/bluetooth/sleep/lpm
     chmod 0220 /proc/bluetooth/sleep/btwrite
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/lpm
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
+    insmod /system/lib/modules/cfg80211.ko
+    insmod /system/lib/modules/bcmdhd_29.ko
 
 #NFC
 #   setprop ro.nfc.port "I2C"
@@ -290,6 +292,11 @@ service iprenew_bnep0 /system/bin/dhcpcd -n
 # virtual sdcard daemon running as media_rw (1023)
 service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
     class late_start
+
+# bdaddrwriter - Write ASUS BD_ADDR to /data/misc/bluetooth
+service bdaddrwriter /system/bin/bdaddrwriter
+    class main
+    oneshot
 
 # Start GPS daemon
   on boot
