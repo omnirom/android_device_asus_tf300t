@@ -27,7 +27,6 @@ PRODUCT_COPY_FILES += \
 
 # Prebuilt config files
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vold.fstab:system/etc/vold.fstab \
     system/bluetooth/data/main.nonsmartphone.conf:system/etc/bluetooth/main.conf
 
 # Input device config files
