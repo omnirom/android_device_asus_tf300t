@@ -103,6 +103,8 @@ BOARD_SEPOLICY_UNION := \
     device.te \
     domain.te
 
+BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
+
 # Recovery Options
 BOARD_CUSTOM_BOOTIMG_MK := device/asus/tf300t/recovery/recovery.mk
 BOARD_HAS_NO_SELECT_BUTTON := true
