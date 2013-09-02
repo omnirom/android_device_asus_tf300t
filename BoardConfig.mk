@@ -93,6 +93,16 @@ TARGET_KERNEL_CONFIG := tf300t_cm10_defconfig
 # Custom Tools
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/asus/tf300t/releasetools/tf300t_ota_from_target_files
 
+# SELinux policies
+BOARD_SEPOLICY_DIRS := \
+    device/asus/tf300t/selinux
+
+BOARD_SEPOLICY_UNION := \
+    file_contexts \
+    file.te \
+    device.te \
+    domain.te
+
 # Recovery Options
 BOARD_CUSTOM_BOOTIMG_MK := device/asus/tf300t/recovery/recovery.mk
 BOARD_HAS_NO_SELECT_BUTTON := true
