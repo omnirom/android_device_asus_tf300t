@@ -72,9 +72,10 @@ PRODUCT_PACKAGES += \
     libaudioutils \
     blobpack_tfp \
     mischelp \
-    wifimacwriter \
-    com.cyanogenmod.asusdec \
-    libasusdec_jni
+    wifimacwriter 
+
+#    libasusdec_jni
+#    com.cyanogenmod.asusdec 
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
