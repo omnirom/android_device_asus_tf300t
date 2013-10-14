@@ -94,14 +94,14 @@ TARGET_KERNEL_CONFIG := tf300t_cm10_defconfig
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/asus/tf300t/releasetools/tf300t_ota_from_target_files
 
 # SELinux policies
-BOARD_SEPOLICY_DIRS := \
-    device/asus/tf300t/selinux
+#BOARD_SEPOLICY_DIRS := \
+#    device/asus/tf300t/selinux
 
-BOARD_SEPOLICY_UNION := \
-    file_contexts \
-    file.te \
-    device.te \
-    domain.te
+#BOARD_SEPOLICY_UNION := \
+#    file_contexts \
+#    file.te \
+#    device.te \
+#    domain.te
 
 BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
 
