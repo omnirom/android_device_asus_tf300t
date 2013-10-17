@@ -13,5 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
-add_lunch_combo custom_tf300t-userdebug
+add_lunch_combo full_tf300t-userdebug
+add_lunch_combo omni_tf300t-userdebug

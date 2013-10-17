@@ -13,6 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-$(call inherit-product, device/asus/grouper/custom_tf300t.mk)
+$(call inherit-product, device/asus/grouper/full_tf300t.mk)
 
 PRODUCT_NAME := aosp_tf300t

@@ -12,9 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, device/asus/tf300t/device_tf300t.mk)
-# This is where we'd set a backup provider if we had one
 #$(call inherit-product, device/sample/products/backup_overlay.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
@@ -27,3 +24,7 @@ PRODUCT_NAME := full_tf300t
 PRODUCT_DEVICE := tf300t
 PRODUCT_BRAND := Asus
 PRODUCT_MODEL := TF300T
+
+# Inherit from those products. Most specific first.
+$(call inherit-product, device/asus/tf300t/device_tf300t.mk)
+# This is where we'd set a backup provider if we had one
