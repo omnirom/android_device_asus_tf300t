@@ -103,6 +103,27 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/asus/tf300t/releasetools/tf3
 #    device.te \
 #    domain.te
 
+# SELINUX Defines
+BOARD_SEPOLICY_DIRS := \
+    device/asus/tf300t/sepolicy
+
+BOARD_SEPOLICY_UNION := \
+    file_contexts \
+    genfs_contexts \
+    app.te \
+    btmacreader.te \
+    device.te \
+    drmserver.te \
+    init_shell.te \
+    file.te \
+    rild.te \
+    sensors_config.te \
+    shell.te \
+    surfaceflinger.te \
+    system.te \
+    zygote.te
+
+
 BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
 
 # Recovery Options
