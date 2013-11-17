@@ -27,8 +27,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # Prebuilt config files
-PRODUCT_COPY_FILES += \
-    system/bluetooth/data/main.nonsmartphone.conf:system/etc/bluetooth/main.conf
+#PRODUCT_COPY_FILES += \
+#    system/bluetooth/data/main.nonsmartphone.conf:system/etc/bluetooth/main.conf
 
 # Input device config files
 PRODUCT_COPY_FILES += \
@@ -94,6 +94,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF300T \
     ro.product.model=TF300T
+
+ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0
 
 # media files
 PRODUCT_COPY_FILES += \

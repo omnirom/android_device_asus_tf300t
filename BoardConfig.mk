@@ -42,13 +42,14 @@ ARCH_ARM_USE_NON_NEON_MEMCPY := true
 NEED_WORKAROUND_CORTEX_A9_745320 := true
 
 # Boot/Recovery image settings  
-BOARD_KERNEL_CMDLINE := 
+BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE :=
 
 # EGL settings
 BOARD_EGL_CFG := device/asus/tf300t/egl.cfg
 USE_OPENGL_RENDERER := true
+BOARD_HAVE_PIXEL_FORMAT_INFO := true
 
 # Misc display settings
 BOARD_USE_SKIA_LCDTEXT := true
@@ -103,6 +104,27 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/asus/tf300t/releasetools/tf3
 #    device.te \
 #    domain.te
 
+# SELINUX Defines
+BOARD_SEPOLICY_DIRS := \
+    device/asus/tf300t/sepolicy
+
+BOARD_SEPOLICY_UNION := \
+    file_contexts \
+    genfs_contexts \
+    app.te \
+    btmacreader.te \
+    device.te \
+    drmserver.te \
+    init_shell.te \
+    file.te \
+    rild.te \
+    sensors_config.te \
+    shell.te \
+    surfaceflinger.te \
+    system.te \
+    zygote.te
+
+
 BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
 
 # Recovery Options
@@ -112,27 +134,27 @@ BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_RECOVERY_INITRC := device/asus/tf300t/recovery/init.rc
 BOARD_HAS_SDCARD_INTERNAL := true
 TARGET_RECOVERY_FSTAB := device/asus/tf300t/ramdisk/fstab.cardhu
-RECOVERY_FSTAB_VERSION := 2
 
 
-#twrp
+#TWRP
 DEVICE_RESOLUTION := 1280x800
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_NO_USB_STORAGE := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_NO_REBOOT_RECOVERY := true
+TW_INCLUDE_JB_CRYPTO := true
 
 TW_INTERNAL_STORAGE_PATH := "/data/media"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXTERNAL_STORAGE_PATH := "/external_sdcard"
 TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sdcard"
 
-TW_INCLUDE_CRYPTO := true
 TW_CRYPTO_FS_TYPE := "ext4"
 TW_CRYPTO_REAL_BLKDEV := "/dev/block/mmcblk0p8"
 TW_CRYPTO_MNT_POINT := "/data"
-TW_CRYPTO_FS_OPTIONS := "journal_async_commit,data=writeback,nodelalloc"
+#TW_CRYPTO_FS_OPTIONS := "journal_async_commit,data=writeback,nodelalloc"
+TW_CRYPTO_FS_OPTIONS := "data=ordered,delalloc"
 TW_CRYPTO_FS_FLAGS := "0x00000406"
 TW_CRYPTO_KEY_LOC := "footer"
 TWRP_CUSTOM_KEYBOARD := ../../../device/asus/tf300t/recovery/hardwarekeyboard.cpp
