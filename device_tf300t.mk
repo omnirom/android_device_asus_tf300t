@@ -95,6 +95,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF300T \
     ro.product.model=TF300T
 
+# Disable adb secure
+ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=0
+
 # media files
 PRODUCT_COPY_FILES += \
     device/asus/tf300t/media_codecs.xml:system/etc/media_codecs.xml \
