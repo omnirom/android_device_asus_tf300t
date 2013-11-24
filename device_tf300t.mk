@@ -90,8 +90,9 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Tegra 3 spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.tegra.nvmmlite=1
-
+    persist.tegra.nvmmlite=1 \
+    ro.zygote.disable_gl_preload=1
+    
 # Prime spacific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF300T \
