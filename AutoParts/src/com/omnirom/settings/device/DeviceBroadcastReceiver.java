@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The CyanogenMod Project
+ * Copyright (C) 2013 The omnirom Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,30 +14,25 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.settings.device;
+package com.omnirom.settings.device;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.UserHandle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.cyanogenmod.asusdec.DockEmbeddedController;
-import com.cyanogenmod.asusdec.KeyHandler;
-
-import java.util.Date;
+import com.omnirom.asusdec.DockEmbeddedController;
+import com.omnirom.asusdec.KeyHandler;
 
 public class DeviceBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "DeviceBroadcastReceiver";
 
-    private static final int NOTIFICATION_ID = R.string.dock_kp_notifications_title;
+    private static final int NOTIFICATION_ID = R.string.app_name;
 
     private final Handler mHandler;
     private static final Object mLock = new Object();
@@ -65,31 +60,19 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
         final String action = intent.getAction();
         if (KeyHandler.ACTION_DOCK_KEYPAD_KEY_PRESSED.equals(action)) {
             checkKeyPadKeyPressed(ctx, intent);
-
-        } else if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
-            checkConnectivity(ctx, intent);
-
         } else if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            checkBootComplete(ctx, intent);
-
+            setEcWakeMode(true);
         } else if (Intent.ACTION_DOCK_EVENT.equals(action)) {
-            int state = intent.getIntExtra(
-                                Intent.EXTRA_DOCK_STATE, Intent.EXTRA_DOCK_STATE_UNDOCKED);
-            // On undock unset ec_wakeup. Otherwise, restore the last setting status
-            if (state == Intent.EXTRA_DOCK_STATE_UNDOCKED) {
-                setEcWakeMode(false);
-            } else {
-                restoreEcWakeMode(ctx);
+            int state = intent.getIntExtra(Intent.EXTRA_DOCK_STATE,
+                    Intent.EXTRA_DOCK_STATE_UNDOCKED);
+            // On dock set ec_wakeup
+            if (state != Intent.EXTRA_DOCK_STATE_UNDOCKED) {
+                setEcWakeMode(true);
             }
         }
     }
 
     private void checkKeyPadKeyPressed(Context ctx, Intent intent) {
-
-        boolean displayNotifications = DockUtils.getKpNotifications(ctx);
-        if (!displayNotifications) {
-            return;
-        }
 
         synchronized (mLock) {
             if (mNotificationManager == null) {
@@ -187,113 +170,11 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
 
         // Display the notification?
         if (title != null) {
-            displayKeyPadNotification(ctx, title, icon);
+            displayNotification(ctx, title, icon);
         }
     }
 
-    private void checkConnectivity(Context ctx, Intent intent) {
-        // Start/Stop LTO download service when connectivity changes
-        boolean hasConnection =
-                !intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-
-        Log.d(TAG, "Got connectivity change, has connection: " + hasConnection);
-        Intent serviceIntent = new Intent(ctx, LtoDownloadService.class);
-
-        if (hasConnection) {
-            ctx.startService(serviceIntent);
-        } else {
-            ctx.stopService(serviceIntent);
-        }
-    }
-
-    private void checkBootComplete(Context ctx, Intent intent) {
-        // Restore CPU mode
-        restoreCpuMode(ctx);
-
-        // Restore Nvidia Smartdimmer mode
-        restoreSmartdimmerMode(ctx);
-
-        // Restore dock EcWakeUp mode
-        restoreEcWakeMode(ctx);
-
-        // Schedule LTO download
-        scheduleLtoDownload(ctx);
-    }
-
-    private void restoreCpuMode(Context ctx) {
-        try {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-            String cpuMode = CpuUtils.getCpuMode();
-            boolean cpuSetOnBoot =
-                    prefs.getBoolean(CpuUtils.PREFERENCE_CPU_SET_ON_BOOT, false);
-            Log.i(TAG,
-                    String.format("Set CPU mode on boot %s.", String.valueOf(cpuSetOnBoot)));
-            Log.i(TAG,
-                    String.format("Current CPU mode %s.", String.valueOf(cpuMode)));
-            if (cpuSetOnBoot) {
-                cpuMode =
-                    prefs.getString(
-                            CpuUtils.PREFERENCE_CPU_MODE, CpuUtils.DEFAULT_CPU_MODE);
-                CpuUtils.setCpuMode(cpuMode);
-
-                Log.i(TAG, String.format("Applied CPU mode on boot to value %s.", cpuMode));
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "CPU set on boot failed", ex);
-        }
-    }
-
-    private void restoreSmartdimmerMode(Context ctx) {
-        try {
-            boolean smartdimmer = DisplayUtils.getSmartdimmer(ctx);
-            Log.i(TAG, "Restore Smartdimmer: " + smartdimmer);
-            if (!DisplayUtils.writeSmartdimmerStatus(smartdimmer)) {
-                Log.w(TAG, "Restore Smartdimmer failed.");
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "Restore Smartdimmer failed", ex);
-        }
-    }
-
-    private void restoreEcWakeMode(Context ctx) {
-        try {
-            DockEmbeddedController dockEc = new DockEmbeddedController();
-            boolean ecWakeUp = DockUtils.getEcWakeUp(ctx);
-            Log.i(TAG, "Restore EcWakeUp: " + ecWakeUp);
-            if (!dockEc.setECWakeUp(ecWakeUp)) {
-                Log.w(TAG, "Restore EcWakeUp failed.");
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "Restore EcWakeUp failed", ex);
-        }
-    }
-
-    private void setEcWakeMode(boolean on) {
-        try {
-            DockEmbeddedController dockEc = new DockEmbeddedController();
-            Log.i(TAG, "Set EcWakeUp: " + on);
-            if (!dockEc.setECWakeUp(on)) {
-                Log.w(TAG, "Set EcWakeUp failed.");
-            }
-        } catch (Exception ex) {
-            Log.e(TAG, "Set EcWakeUp failed", ex);
-        }
-    }
-
-    private void scheduleLtoDownload(Context ctx) {
-        try {
-            long lastDownload = LtoDownloadUtils.getLastDownload(ctx);
-            long next = LtoDownloadUtils.scheduleNextDownload(ctx, lastDownload);
-
-            Log.i(TAG, String.format(
-                        "Scheduled LTO download. Next time: %s.",
-                        String.valueOf(new Date(next))));
-        } catch (Exception ex) {
-            Log.e(TAG, "Schedule of LTO data download failed", ex);
-        }
-    }
-
-    private void displayKeyPadNotification(Context ctx, String title, int icon) {
+    private void displayNotification(Context ctx, String title, int icon) {
         // Cancel any running notification callback
         synchronized (mLock) {
             mHandler.removeCallbacks(mCancelKpNotifications);
@@ -314,5 +195,17 @@ public class DeviceBroadcastReceiver extends BroadcastReceiver {
 
         // Post a delayed cancellation of the notification
         mHandler.postDelayed(mCancelKpNotifications, mNotificationTimeout);
+    }
+
+    private void setEcWakeMode(boolean on) {
+        try {
+            DockEmbeddedController dockEc = new DockEmbeddedController();
+            Log.i(TAG, "Set EcWakeUp: " + on);
+            if (!dockEc.setECWakeUp(on)) {
+                Log.w(TAG, "Set EcWakeUp failed.");
+            }
+        } catch (Exception ex) {
+            Log.e(TAG, "Set EcWakeUp failed", ex);
+        }
     }
 }

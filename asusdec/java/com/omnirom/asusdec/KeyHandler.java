@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The CyanogenMod Project
+ * Copyright (C) 2012 The omnirom Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.asusdec;
+package com.omnirom.asusdec;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.ActivityNotFoundException;
@@ -51,10 +51,10 @@ public final class KeyHandler implements DeviceKeyHandler {
     private static final String SETTING_TOUCHPAD_STATUS = "touchpad_status";
 
     public static final String PERMISSION_KEYPAD_RECEIVER =
-            "com.cyanogenmod.asusdec.permission.KEYPAD_RECEIVER";
+            "com.omnirom.asusdec.permission.KEYPAD_RECEIVER";
 
     public static final String ACTION_DOCK_KEYPAD_KEY_PRESSED =
-                                "com.cyanogenmod.asusdec.actions.ACTION_DOCK_KEYPAD_KEY_PRESSED";
+                                "com.omnirom.asusdec.actions.ACTION_DOCK_KEYPAD_KEY_PRESSED";
     public static final String EXTRA_ASUSDEC_KEY = "key";
     public static final String EXTRA_ASUSDEC_STATUS = "status";
     public static final String EXTRA_ASUSDEC_VALUE = "value";
