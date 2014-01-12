@@ -53,6 +53,6 @@
 }
 
 # Keep asusdec classes
--keep public class com.cyanogenmod.asusdec.** {
+-keep public class org.omnirom.asusdec.** {
   public protected private *;
 }
