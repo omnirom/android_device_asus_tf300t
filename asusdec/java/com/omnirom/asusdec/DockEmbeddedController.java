@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cyanogenmod.asusdec;
+package com.omnirom.asusdec;
 
 import android.util.Log;
 
@@ -41,7 +41,7 @@ public final class DockEmbeddedController {
     private void readECWakeUpStatus() {
         boolean ecWakeUp = nativeReadECWakeUp() == ASUSDEC_EC_ON;
         mECWakeUp = ecWakeUp;
-        Log.i(TAG, String.format("Readed EC WakeUp status: %s", mECWakeUp ? "on" : "off"));
+        Log.i(TAG, String.format("Read EC WakeUp status: %s", mECWakeUp ? "on" : "off"));
     }
 
     public boolean isECWakeUp() {

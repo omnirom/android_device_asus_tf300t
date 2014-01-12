@@ -55,7 +55,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
-    $(LOCAL_PATH)/asusdec/com.cyanogenmod.asusdec.xml:system/etc/permissions/com.cyanogenmod.asusdec.xml
+    $(LOCAL_PATH)/asusdec/com.omnirom.asusdec.xml:system/etc/permissions/com.omnirom.asusdec.xml
 
 # Build characteristics setting 
 PRODUCT_CHARACTERISTICS := tablet
@@ -73,12 +73,12 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     tinymix \
     libaudioutils \
+    AutoParts \
     blobpack_tfp \
     mischelp \
-    wifimacwriter 
-
-#    libasusdec_jni
-#    com.cyanogenmod.asusdec 
+    wifimacwriter \
+    com.omnirom.asusdec \
+    libasusdec_jni
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
