@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-     package="com.cyanogenmod.settings.device"
+     package="com.omnirom.settings.device"
      android:sharedUserId="android.uid.system"
       android:versionCode="1"
       android:versionName="1.0">
@@ -10,19 +10,19 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.cyanogenmod.asusdec.permission.KEYPAD_RECEIVER" />
+    <uses-permission android:name="org.omnirom.asusdec.permission.KEYPAD_RECEIVER" />
 
     <application
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher_cmdevicesettings">
 
         <activity
-            android:name="com.cyanogenmod.settings.device.DeviceSettings"
+            android:name="org.omnirom.settings.device.DeviceSettings"
             android:icon="@drawable/ic_launcher_cmdevicesettings"
             android:label="@string/app_name" >
 
             <intent-filter>
-                <action android:name="com.cyanogenmod.action.LAUNCH_DEVICE_SETTINGS" />
+                <action android:name="org.omnirom.action.LAUNCH_DEVICE_SETTINGS" />
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
 
@@ -35,13 +35,9 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.DOCK_EVENT" />
-                <action android:name="com.cyanogenmod.asusdec.actions.ACTION_DOCK_KEYPAD_KEY_PRESSED" />
+                <action android:name="org.omnirom.asusdec.actions.ACTION_DOCK_KEYPAD_KEY_PRESSED" />
             </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".LtoDownloadService"
-            android:exported="false" />
+	    </receiver>
 
     </application>
 
