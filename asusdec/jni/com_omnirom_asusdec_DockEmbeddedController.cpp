@@ -106,7 +106,7 @@ static JNINativeMethod sMethods[] = {
 
 int register_asusdec_DockEmbeddedController(JNIEnv* env)
 {
-    return jniRegisterNativeMethods(env, "com/cyanogenmod/asusdec/DockEmbeddedController", sMethods, NELEM(sMethods));
+    return jniRegisterNativeMethods(env, "com/omnirom/asusdec/DockEmbeddedController", sMethods, NELEM(sMethods));
 }
 
 } /* namespace asusdec */

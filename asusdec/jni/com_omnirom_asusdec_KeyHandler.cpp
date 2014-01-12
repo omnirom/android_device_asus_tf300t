@@ -68,7 +68,7 @@ static JNINativeMethod sMethods[] = {
 
 int register_asusdec_KeyHandler(JNIEnv* env)
 {
-    return jniRegisterNativeMethods(env, "com/cyanogenmod/asusdec/KeyHandler", sMethods, NELEM(sMethods));
+    return jniRegisterNativeMethods(env, "com/omnirom/asusdec/KeyHandler", sMethods, NELEM(sMethods));
 }
 
 } /* namespace asusdec */
