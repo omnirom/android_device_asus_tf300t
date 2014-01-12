@@ -73,12 +73,12 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     tinymix \
     libaudioutils \
+    AutoParts_tfp \
     blobpack_tfp \
     mischelp \
-    wifimacwriter 
-
-#    libasusdec_jni
-#    com.cyanogenmod.asusdec 
+    wifimacwriter \
+    com.cyanogenmod.asusdec \
+    libasusdec_jni
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
