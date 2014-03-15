@@ -108,7 +108,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/asus/tf300t/gpsconfig.xml:system/etc/gps/gpsconfig.xml \
     device/asus/tf300t/gps.conf:system/etc/gps.conf \
-    device/asus/tf300t/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
+    device/asus/tf300t/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
+    device/asus/tf300t/get-gps-lto:system/bin/get-gps-lto
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
