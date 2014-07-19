@@ -18,6 +18,11 @@ BOARD_USES_GENERIC_AUDIO := false
 USE_CAMERA_STUB := false
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
+# Cardhu HAL libraries
+BOARD_HAL_STATIC_LIBRARIES := \
+    libdumpstate.cardhu \
+    libhealthd.cardhu
+
 # inherit from the proprietary version
 -include vendor/asus/tf300t/BoardConfigVendor.mk
 
