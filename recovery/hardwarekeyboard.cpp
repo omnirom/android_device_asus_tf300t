@@ -369,19 +369,19 @@ int HardwareKeyboard::KeyDown(int key_code) {
 			keyboard = KEYBOARD_ARROW_RIGHT;
 			break;
 		case KEY_BACK: // back button on screen
-		 mPressedKeys.insert( KEY_BACK );
+			mPressedKeys.insert( KEY_BACK );
 			PageManager::NotifyKey(KEY_BACK, keydown);
 			return 0;
 			break;
 		case KEY_HOMEPAGE: // keyboard home button
 		case KEY_HOME: // home button on screen
-		 mPressedKeys.insert( KEY_HOME);
+			mPressedKeys.insert( KEY_HOME);
 			PageManager::NotifyKey(KEY_HOME, keydown);
 			return 0;
 			break;
 		case KEY_SLEEP: // keyboard lock button
 		case KEY_POWER: // tablet power button
-		 mPressedKeys.insert( KEY_POWER );
+			mPressedKeys.insert( KEY_POWER );
 			PageManager::NotifyKey(KEY_POWER, keydown);
 			return 0;
 			break;
@@ -393,17 +393,22 @@ int HardwareKeyboard::KeyDown(int key_code) {
 	}
 	if (keyboard != -1) {
 		DataManager::SetValue("last_key", keyboard);
+		mPressedKeys.insert(keyboard);
 		if (!PageManager::NotifyKeyboard(keyboard))
 			return 1;  // Return 1 to enable key repeat
 	} else {
 		DataManager::SetValue("last_key", 0);
-		mPressedKeys.insert( keyboard );
-		PageManager::NotifyKey(keyboard, keydown);
 	}
 	return 0;
 }
 
 int HardwareKeyboard::KeyUp(int key_code) {
+	std::set<int>::iterator itr = mPressedKeys.find(key_code);
+	if (itr != mPressedKeys.end()) {
+		mPressedKeys.erase(itr);
+		PageManager::NotifyKey(key_code, false);
+	}
+
 #ifdef _EVENT_LOGGING
 	LOGE("HardwareKeyboard::KeyUp %i\n", key_code);
 #endif

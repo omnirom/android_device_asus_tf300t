@@ -164,3 +164,6 @@ TW_CRYPTO_FS_OPTIONS := "data=ordered,delalloc"
 TW_CRYPTO_FS_FLAGS := "0x00000406"
 TW_CRYPTO_KEY_LOC := "footer"
 TWRP_CUSTOM_KEYBOARD := ../../../device/asus/tf300t/recovery/hardwarekeyboard.cpp
+TW_BRIGHTNESS_FILE := /sys/devices/platform/pwm-backlight/backlight/pwm-backlight/brightness
+TW_MAX_BRIGHTNESS := 255
+
