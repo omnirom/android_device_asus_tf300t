@@ -2,6 +2,6 @@
  {
    "repository": "android_kernel_asus_tf300t",
    "target_path": "kernel/asus/tf300t",
-   "branch": "android-4.4"
+   "branch": "android-5.0"
  }
 ]
