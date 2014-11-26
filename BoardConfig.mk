@@ -15,8 +15,11 @@
 #
 
 BOARD_USES_GENERIC_AUDIO := false
-USE_CAMERA_STUB := false
-BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
+BOARD_USES_ALSA_AUDIO := false
+BOARD_USES_TINY_AUDIO_HW := false
+
+# Camera options
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 
 # inherit from the proprietary version
 -include vendor/asus/tf300t/BoardConfigVendor.mk
@@ -87,7 +90,6 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 29850022707
 BOARD_FLASH_BLOCK_SIZE := 4096
-TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
 # Try to build the kernel
 TARGET_KERNEL_SOURCE := kernel/asus/tf300t
@@ -113,24 +115,27 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := device/asus/tf300t/releasetools/tf3
 BOARD_SEPOLICY_DIRS := \
     device/asus/tf300t/sepolicy
 
-BOARD_SEPOLICY_UNION := \
-    file_contexts \
-    genfs_contexts \
-    app.te \
-    btmacreader.te \
-    device.te \
-    drmserver.te \
-    init_shell.te \
-    file.te \
-    rild.te \
-    sensors_config.te \
-    shell.te \
-    surfaceflinger.te \
-    system.te \
-    zygote.te
-
-
-BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
+BOARD_SEPOLICY_UNION += \
+        file_contexts \
+        genfs_contexts \
+        bluetooth.te \
+        device.te \
+        domain.te \
+        drmserver.te \
+        init_shell.te \
+        file.te \
+        gpsd.te \
+        keystore.te \
+        lmkd.te \
+        mediaserver.te \
+        recovery.te \
+        rild.te \
+        sensors_config.te \
+        surfaceflinger.te \
+        system_app.te \
+        system_server.te \
+        ueventd.te \
+        vold.te
 
 # Recovery Options
 BOARD_CUSTOM_BOOTIMG_MK := device/asus/tf300t/recovery/recovery.mk
@@ -148,7 +153,7 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TW_NO_USB_STORAGE := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_NO_REBOOT_RECOVERY := true
-TW_INCLUDE_JB_CRYPTO := true
+TW_INCLUDE_L_CRYPTO := true
 
 TW_INTERNAL_STORAGE_PATH := "/data/media"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"

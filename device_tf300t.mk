@@ -59,6 +59,8 @@ PRODUCT_COPY_FILES += \
 
 # Build characteristics setting 
 PRODUCT_CHARACTERISTICS := tablet
+PRODUCT_AAPT_CONFIG := normal large xlarge mdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 
 # This device have enough room for precise davick
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -73,12 +75,10 @@ PRODUCT_PACKAGES += \
     audio.r_submix.default \
     tinymix \
     libaudioutils \
-    AutoParts \
+    libinvensense_mpl \
     blobpack_tfp \
-    mischelp \
     wifimacwriter \
-    org.omnirom.asusdec \
-    libasusdec_jni
+    mischelp
 
 # Propertys spacific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
