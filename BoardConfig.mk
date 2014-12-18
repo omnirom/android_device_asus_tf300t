@@ -129,8 +129,7 @@ BOARD_SEPOLICY_UNION := \
     system.te \
     zygote.te
 
-
-BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
+MALLOC_IMPL := dlmalloc
 
 # Recovery Options
 BOARD_CUSTOM_BOOTIMG_MK := device/asus/tf300t/recovery/recovery.mk
