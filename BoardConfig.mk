@@ -129,6 +129,7 @@ BOARD_SEPOLICY_UNION := \
     system.te \
     zygote.te
 
+MALLOC_IMPL := dlmalloc
 
 BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
 
