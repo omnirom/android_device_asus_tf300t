@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb3671c6_524c8ae3",
+        "filename": "overlay/frameworks/base/core/res/res/values/config.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1000979
+      },
+      "writtenOn": "2014-12-19T22:32:05Z",
+      "side": 1,
+      "message": "It would appear to me that others are using 4 as max users ...",
+      "revId": "47717cd30af842896b9b42d40743fdec6c8b8776",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
