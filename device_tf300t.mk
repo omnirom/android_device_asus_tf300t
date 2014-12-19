@@ -97,6 +97,10 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.tegra.nvmmlite=1 \
     ro.zygote.disable_gl_preload=1
+
+# libhwui flags
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.hwui.render_dirty_regions=false
     
 # Prime specific overrides
 PRODUCT_PROPERTY_OVERRIDES += \
