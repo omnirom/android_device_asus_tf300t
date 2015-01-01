@@ -84,7 +84,8 @@ PRODUCT_PACKAGES += \
     blobpack_tfp \
     wifimacwriter \
     org.omnirom.asusdec \
-    libasusdec_jni
+    libasusdec_jni \
+    power.cardhu
 
 # Propertys specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
@@ -127,6 +128,10 @@ PRODUCT_COPY_FILES += \
     device/asus/tf300t/gps.conf:system/etc/gps.conf \
     device/asus/tf300t/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf \
     device/asus/tf300t/get-gps-lto:system/bin/get-gps-lto
+
+# Power profiles
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/power_profiles.xml:system/etc/power_profiles.xml
 
 # Inherit tablet dalvik settings
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)

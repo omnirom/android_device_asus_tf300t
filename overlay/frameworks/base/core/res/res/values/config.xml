@@ -219,4 +219,6 @@
         <item>silent</item>
         <item>bugreport</item>
     </string-array>
+
+    <bool name="config_powerProfilesSupported">true</bool>
 </resources>
