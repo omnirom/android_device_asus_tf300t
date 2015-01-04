@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab30f9cd_cd99bd23",
+        "filename": "power/power.c",
+        "patchSetId": 7
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000979
+      },
+      "writtenOn": "2015-01-04T18:18:23Z",
+      "side": 1,
+      "message": "Should this be Cardhu ?",
+      "revId": "20d3455ac5bde1aa6af01c13400548876ac31aba",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
