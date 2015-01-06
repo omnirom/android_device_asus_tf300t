@@ -80,7 +80,6 @@ PRODUCT_PACKAGES += \
     libaudioutils \
     AutoParts \
     blobpack_tfp \
-    mischelp \
     wifimacwriter \
     org.omnirom.asusdec \
     libasusdec_jni
