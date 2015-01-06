@@ -378,17 +378,6 @@ on property:init.svc.wpa_supplicant=running
 on device-added-/sys/block/sda
   mount vfat /dev/block/sda /mnt/usbdrive
 
-# configure MSC partition
-service mischelp /system/bin/mischelp /dev/block/mmcblk0p3 boot-recovery
-    disabled
-    class main
-    user root
-    group root
-    oneshot
-
-on property:sys.shutdown.requested=1recovery
-    start mischelp
-
 # Prepare TF service
 import init.tf.rc
 
