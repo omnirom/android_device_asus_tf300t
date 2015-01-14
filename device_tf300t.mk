@@ -84,7 +84,7 @@ PRODUCT_PACKAGES += \
     org.omnirom.asusdec \
     libasusdec_jni
 
-# Propertys spacific for this device
+# Propertys specific for this device
 PRODUCT_PROPERTY_OVERRIDES := \
     wifi.interface=wlan0 \
     wifi.supplicant_scan_interval=15 \
@@ -101,6 +101,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.epad.model=TF300T \
     ro.product.model=TF300T
+
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
 
 # media files
 PRODUCT_COPY_FILES += \
