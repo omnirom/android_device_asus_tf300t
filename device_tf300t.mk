@@ -73,6 +73,8 @@ PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory \
     make_ext4fs \
+    fsck.f2fs \
+    mkfs.f2fs \
     setup_fs \
     audio.a2dp.default \
     audio.r_submix.default \
