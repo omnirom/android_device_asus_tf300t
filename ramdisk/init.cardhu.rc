@@ -91,7 +91,7 @@ on boot
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/lpm
     chown bluetooth net_bt_stack /proc/bluetooth/sleep/btwrite
     insmod /system/lib/modules/cfg80211.ko
-    insmod /system/lib/modules/bcmdhd_29.ko
+    insmod /system/lib/modules/bcmdhd.ko
 
 #NFC
 #   setprop ro.nfc.port "I2C"
