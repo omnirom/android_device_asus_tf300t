@@ -27,9 +27,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOOTLOADER_BOARD_NAME := cardhu
 TARGET_NO_BOOTLOADER := true
-
 TARGET_BOARD_PLATFORM := tegra
-
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
@@ -81,36 +79,22 @@ BOARD_WLAN_DEVICE           := bcmdhd
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_FW_PATH_STA     := "/system/vendor/firmware/bcm4329/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP      := "/system/vendor/firmware/bcm4329/fw_bcmdhd_apsta.bin"
-#WIFI_DRIVER_FW_PATH_P2P     := "/system/vendor/firmware/bcm4329/fw_bcmdhd_p2p.bin"
 
+# Partition info
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 805306368
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 29850022707
 BOARD_FLASH_BLOCK_SIZE := 4096
-# TARGET_USERIMAGES_SPARSE_EXT_DISABLED := true
 
-# Try to build the kernel
+# Build the kernel inline
 TARGET_KERNEL_SOURCE := kernel/asus/tf300t
 TARGET_KERNEL_CONFIG := omni_tf300t_defconfig
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
 
-# Prebuilt Kernel Fallback
-#TARGET_PREBUILT_KERNEL := device/asus/tf300t/kernel
-
 # Allow overriding partition for boot image
 TARGET_RELEASETOOL_OTA_FROM_TARGET_ADDITIONAL_ARGS := --override_boot_partition=/staging
-
-# SELinux policies
-#BOARD_SEPOLICY_DIRS := \
-#    device/asus/tf300t/selinux
-
-#BOARD_SEPOLICY_UNION := \
-#    file_contexts \
-#    file.te \
-#    device.te \
-#    domain.te
 
 # SELINUX Defines
 BOARD_SEPOLICY_DIRS := \
@@ -131,23 +115,19 @@ BOARD_SEPOLICY_UNION := \
     system.te \
     zygote.te
 
+
+# Dynamic memory allocation
 MALLOC_IMPL := dlmalloc
 
 BOARD_HARDWARE_CLASS := device/asus/tf300t/cmhw/
 
-# Recovery Options
-BOARD_CUSTOM_BOOTIMG_MK := device/asus/tf300t/recovery/recovery.mk
-BOARD_HAS_NO_SELECT_BUTTON := true
-BOARD_HAS_LARGE_FILESYSTEM := true
-# TARGET_RECOVERY_INITRC := device/asus/tf300t/recovery/init.rc
-BOARD_HAS_SDCARD_INTERNAL := true
-TARGET_RECOVERY_FSTAB := device/asus/tf300t/ramdisk/fstab.cardhu
-TARGET_USERIMAGES_USE_F2FS := true
-
-#TWRP
+# TWRP
 DEVICE_RESOLUTION := 1280x800
 RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_LARGE_FILESYSTEM := true
 BOARD_HAS_NO_REAL_SDCARD := true
+BOARD_CUSTOM_BOOTIMG_MK := device/asus/tf300t/recovery/recovery.mk
+TARGET_USERIMAGES_USE_F2FS := true
 TW_NO_USB_STORAGE := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_NO_REBOOT_RECOVERY := true
