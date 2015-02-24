@@ -117,19 +117,33 @@ BOARD_SEPOLICY_DIRS := \
     device/asus/tf300t/sepolicy
 
 BOARD_SEPOLICY_UNION := \
-    file_contexts \
-    genfs_contexts \
-    app.te \
-    btmacreader.te \
-    device.te \
-    drmserver.te \
-    init_shell.te \
-    file.te \
-    rild.te \
-    sensors_config.te \
-    surfaceflinger.te \
-    system.te \
-    zygote.te
+	file_contexts \
+	property_contexts \
+	service_contexts \
+	genfs_contexts \
+	app.te \
+	bluetooth.te \
+	device.te \
+	domain.te \
+	drmserver.te \
+	file.te \
+	gpsd.te \
+	init.te \
+	init_shell.te \
+	keystore.te \
+	lmkd.te \
+	mediaserver.te \
+	property.te \
+	recovery.te \
+	rild.te \
+	sensors_config.te \
+	surfaceflinger.te \
+	system.te \
+	system_app.te \
+	system_server.te \
+	ueventd.te \
+	vold.te \
+	zygote.te
 
 MALLOC_IMPL := dlmalloc
 
