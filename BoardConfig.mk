@@ -116,20 +116,30 @@ TARGET_RELEASETOOL_OTA_FROM_TARGET_ADDITIONAL_ARGS := --override_boot_partition=
 BOARD_SEPOLICY_DIRS := \
     device/asus/tf300t/sepolicy
 
-BOARD_SEPOLICY_UNION := \
+BOARD_SEPOLICY_UNION += \
     file_contexts \
+    property_contexts \
+    service_contexts \
     genfs_contexts \
-    app.te \
-    btmacreader.te \
+    bluetooth.te \
     device.te \
+    domain.te \
     drmserver.te \
-    init_shell.te \
     file.te \
+    gpsd.te \
+    init.te \
+    init_shell.te \
+    keystore.te \
+    lmkd.te \
+    mediaserver.te \
+    property.te \
     rild.te \
     sensors_config.te \
     surfaceflinger.te \
-    system.te \
-    zygote.te
+    system_app.te \
+    system_server.te \
+    ueventd.te \
+    vold.te
 
 MALLOC_IMPL := dlmalloc
 
