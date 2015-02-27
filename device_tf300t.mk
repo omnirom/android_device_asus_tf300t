@@ -108,6 +108,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     camera2.portability.force_api=1
 
+# set SELinux property value
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.build.selinux=1
+
 # media files
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
