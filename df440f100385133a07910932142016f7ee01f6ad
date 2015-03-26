@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b22818b_fcfffaa9",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1000174
+      },
+      "writtenOn": "2015-03-26T08:12:19Z",
+      "side": 1,
+      "message": "Delete the whitespace :)",
+      "revId": "df440f100385133a07910932142016f7ee01f6ad",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
