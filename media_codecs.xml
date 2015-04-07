@@ -79,7 +79,6 @@ Only the three quirks included above are recognized at this point:
 
 <MediaCodecs>
     <Include href="media_codecs_google_audio.xml" />
-    <Include href="media_codecs_google_telephony.xml" />
     <Decoders>
         <MediaCodec name="OMX.Nvidia.mp4.decode" type="video/mp4v-es" >
             <Limit name="size" min="32x32" max="1920x1088" />
