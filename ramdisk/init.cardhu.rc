@@ -390,7 +390,3 @@ service setup_fs /system/bin/setup_fs \
     group root
     oneshot
 
-#Raydium touch setting
-service rm_ts_service    /system/bin/rm_ts_server
-    class main
-
