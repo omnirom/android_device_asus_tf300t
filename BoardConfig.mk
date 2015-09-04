@@ -17,6 +17,7 @@
 BOARD_USES_GENERIC_AUDIO := false
 USE_CAMERA_STUB := false
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
+TARGET_OTA_ASSERT_DEVICE := tf201t,tf300t
 
 # inherit from the proprietary version
 -include vendor/asus/tf300t/BoardConfigVendor.mk
